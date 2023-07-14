@@ -9,9 +9,6 @@ const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [searchParams] = useSearchParams();
     const category = searchParams.get('category');
-
-
-
     useEffect(() => {
         const fetchPosts = async () => {
             let response = await API.getAllPosts({ category: category || '' });
@@ -20,8 +17,10 @@ const Posts = () => {
             }
         }
         fetchPosts();
-        console.log(posts);
+        // console.log(posts);
     }, [category]);
+
+
     return (
         <>
             {posts.length === 0 && <Box sx={{ m: 'auto' }}><Typography variant="h1" color="initial">No posts found</Typography></Box>}

@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { AddCircle } from '@mui/icons-material';
 
-import { Paper } from '@mui/material';
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { TextField } from '@mui/material';
@@ -20,18 +19,27 @@ const initialPost = {
     createdDate: new Date()
 }
 
+
 const CreatePost = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const [post, setPost] = useState(initialPost);
-    const [file, setFile] = useState('');
+    // const [file, setFile] = useState('');
     const { account } = useContext(DataContext);
 
     useEffect(() => {
         post.categories = location.search?.split('=')[1] || 'All';
         post.username = account.username;
     });
+    // const handleChange = (e) => {
+    //     setPost({ ...post, [e.target.name]: e.target.value });
+    // }
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        setPost({ ...post, picture: base64 });
+    }
 
     const savePost = async () => {
         await API.createPost(post);
@@ -44,29 +52,23 @@ const CreatePost = () => {
     return (
         <>
 
-            <Paper
-                sx={{
-                    position: 'relative',
-                    backgroundColor: 'grey.800',
-                    color: '#fff',
-                    mb: 4,
-                    height: '30vh',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    backgroundImage: `url(${'https://source.unsplash.com/random?wallpapers'}})`,
-                }}
-            ></Paper>
-            <Box component="form" noValidate sx={{ mt: 1 }}>
 
-                <label htmlFor="fileInput">
+            <div className='banner'>
+                <center>
+                    <img height="200" src={post.picture || 'https://source.unsplash.com/random?wallpapers'} alt="" />
+                </center>
+            </div>            <Box component="form" noValidate sx={{ mt: 1 }}>
+
+                <label htmlFor="file-upload">
                     <AddCircle fontSize="large" color="action" />
                 </label>
                 <input
                     type="file"
-                    id="fileInput"
+                    name='myFile'
+                    id="file-upload"
                     style={{ display: "none" }}
-                    onChange={(e) => setFile(e.target.files[0])}
+                    accept='.png,.jpeg,.jpg'
+                    onChange={(e) => { handleFileUpload(e) }}
                 />
                 <TextField
                     onChange={(e) => handleChange(e)}
@@ -102,6 +104,21 @@ const CreatePost = () => {
             </Box>
         </>
     )
+}
+
+function convertBase64(file) {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+            reject(error);
+        }
+    })
 }
 
 export default CreatePost

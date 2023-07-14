@@ -20,12 +20,12 @@ const Home = () => {
                     backgroundImage: `url(${'https://source.unsplash.com/random?wallpapers'}})`,
                 }}
             >
-
-
             </Paper>
-            <Grid container item xs={12} sm={10} lg={10}>
-                <Posts />
-            </Grid>
+            <center>
+                <Grid container item xs={12} sm={10} lg={12}>
+                    <Posts />
+                </Grid>
+            </center>
         </>
     )
 }

@@ -8,8 +8,6 @@ import { getAccessToken } from '../services/LocalStorageService';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import { Paper } from '@mui/material';
-import { Box } from '@mui/system';
 import { Edit, Delete } from '@mui/icons-material';
 import axios from 'axios';
 const initialPost = {
@@ -37,12 +35,12 @@ const FullView = () => {
             }
         }
         fetchData();
-    }, []);
+    }, [id]);
 
 
     //delete post
     const deleteBlog = async () => {
-        const res = await axios.delete(`http://localhost:8000/delete/${id}`, {
+        await axios.delete(`http://localhost:8000/delete/${id}`, {
             headers: {
                 authorization: getAccessToken(),
             },
@@ -53,52 +51,8 @@ const FullView = () => {
     }
     return (
         <>
-            <Paper
-                sx={{
-                    position: 'relative',
-                    backgroundColor: 'grey.800',
-                    color: '#fff',
-                    mb: 4,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    backgroundImage: `url(${url})`,
-                }}
-            >
-                {<img style={{ display: 'none' }} src={url} alt='banner' />}
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: 0,
-                        bottom: 0,
-                        right: 0,
-                        left: 0,
-                        backgroundColor: 'rgba(0,0,0,.3)',
-                    }}
-                />
-                <Grid container>
-                    <Grid item md={6}>
-                        <Box
-                            sx={{
-                                position: 'relative',
-                                p: { xs: 3, md: 6 },
-                                pr: { md: 0 },
-                            }}
-                        >
-                            <Typography>
-                                Category:{post.categories}
-                            </Typography>
-                            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                                {post.title}
-                            </Typography>
-                            <Typography variant="h5" color="inherit" paragraph>
-                                {post.username}
-                            </Typography>
 
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Paper>
+            <Divider />
             <Grid
                 item
                 xs={12}
@@ -109,6 +63,20 @@ const FullView = () => {
                     },
                 }}
             >
+                <div className='banner'>
+                    <center>
+                        <img height="200" src={post.picture || url} alt="" />
+                    </center>
+                </div>
+                <Typography>
+                    Category:{post.categories}
+                </Typography>
+                <Typography textTransform='capitalize' component="h2" variant="h4" color="inherit" gutterBottom>
+                    {post.title}
+                </Typography>
+                <Typography variant="h5" color="inherit" paragraph>
+                    Author: {post.username}
+                </Typography>
 
                 {
                     account.username === post.username &&

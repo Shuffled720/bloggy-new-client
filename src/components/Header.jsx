@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
 
 import Typography from '@mui/material/Typography';
@@ -8,7 +7,7 @@ import Button from '@mui/material/Button';
 
 import { categories } from '../constants/categories';
 
-function Header({ setUserAuthenticated }) {
+function Header() {
 
     const title = "Bloggy";
 
@@ -35,9 +34,7 @@ function Header({ setUserAuthenticated }) {
                         {title}
                     </Link>
                 </Typography>
-                {/* <Typography sx={{ px: 2, fontWeight: 'bold' }}>
-                    <Link to='/about'>About</Link>
-                </Typography> */}
+            
 
                 <Typography sx={{ px: 2, fontWeight: 'bold' }}>
                     <Link to='/login'>Logout</Link>
@@ -62,14 +59,6 @@ function Header({ setUserAuthenticated }) {
     );
 }
 
-Header.propTypes = {
-    sections: PropTypes.arrayOf(
-        PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            url: PropTypes.string.isRequired,
-        }),
-    ).isRequired,
-    title: PropTypes.string.isRequired,
-};
+
 
 export default Header;

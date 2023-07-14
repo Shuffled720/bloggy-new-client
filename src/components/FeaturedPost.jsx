@@ -2,7 +2,6 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
@@ -36,7 +35,7 @@ function FeaturedPost(props) {
                     <CardMedia
                         component="img"
                         sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
-                        image={post.image || "https://source.unsplash.com/random?wallpapers"}
+                        image={post.picture || "https://source.unsplash.com/random?wallpapers"}
                         alt={post.imageLabel}
                         loading="lazy"
                     />

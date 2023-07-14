@@ -1,9 +1,9 @@
 import './App.css';
-import react, { useEffect } from 'react';
 import { useState } from 'react';
+import './App.css';
 
 //utils
-import { BrowserRouter as Router, Route, Switch, BrowserRouter, Routes, Navigate, Outlet } from 'react-router-dom';
+import { Route, BrowserRouter, Routes, Navigate, Outlet } from 'react-router-dom';
 
 //components
 import SignUp from './pages/Account/SignUp';
@@ -15,6 +15,7 @@ import { Container } from '@mui/material';
 import FullView from './pages/FullView';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
+import Footer from './components/Footer';
 
 
 
@@ -24,14 +25,13 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
     <>
       <Header />
       <Outlet />
+      <Footer />
 
     </> : <Navigate replace to='/login' />
 };
 function App() {
   const [isAuthenticated, setUserAuthenticated] = useState(false);
-  // useEffect(() => {
-  //   // console.log(isAuthenticated);
-  // }, [isAuthenticated])
+
   return (
     <>
       <DataProvider>
