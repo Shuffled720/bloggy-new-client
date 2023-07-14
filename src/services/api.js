@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import { getAccessToken, getType } from './LocalStorageService';
 
-const API_URL = 'http://localhost:8000';
+// const API_URL = 'http://localhost:8000';
+const API_URL = 'https://bloggy-api-1.onrender.com';
 // const API_URL = 'https://bloggy-api-66lu.onrender.com';
 const SERVICE_URLS = {
     userLogin: { url: '/login', method: 'POST' },
